@@ -1,0 +1,52 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign up User</title>
+  <style>
+    label {
+      color: red;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    input {
+      border: none;
+      outline: none;
+      padding: .3rem 0;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <h1>User Page</h1>
+  <form id="entryForm" method="post" action="/user/entry">
+    <label>
+      아이디(메일주소):
+    </label>
+    <input type="text" id="userId" name="userId"/><br>
+    <label for="">
+      암호: 
+    </label>
+    <input type="password" id="userPwd" name="userPwd"/><br>
+    <label for="">
+      암호확인:
+    </label>
+    <input type="password" id="userPwdConfirm" name="userPwdConfirm"/><br>
+    <label for="">
+      이름: 
+    </label>
+    <input type="text" id="userName" name="userName"/><br>
+    <label for="">
+      전화번호: 
+    </label>
+    <input type="text" id="userPhone" name="userPhone"/><br>
+    <input type="submit" value="회원가입" />
+  </form>
+  <script>
+    $('#entryForm').submit(() => {
+      // Valid form
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LogIn Page</title>
+</head>
+<body>
+  <form id="loginForm" action="/user/login" method="post">
+    <label for="">아이디(이메일주소): </label>
+    <input type="text" id="userId" name="userId">
+    <label for="">암호: </label>
+    <input type="password" id="userPwd" name="userPwd">
+    <input type="submit" value="Login">
+  </form>
+  <script>
+    const loginMsg = '<%= loginMsg %>';
+
+    if(loginMsg.length > 0) {
+      alert(loginMsg);
+    }
+    $("#loginForm").submit(() => {
+      return true;
+    });
+  </script>
+</body>
+</html>

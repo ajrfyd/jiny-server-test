@@ -16,7 +16,7 @@ const boardRouter = [
       const resData = await db.Article.findAll(); 
       const mapData = resData.map(item => ({ ...item.dataValues }));
       const data = mapData.map(article => ({ ...article, updatedAt: dayString(article.updatedAt) }));
-      log(c.bgCyan(JSON.stringify(data, null, 2)))
+      // log(c.bgCyan(JSON.stringify(data, null, 2)))
       res.render('./board/list', { data, dayString });
     }
   },
