@@ -6,7 +6,7 @@
   <title>LogIn Page</title>
 </head>
 <body>
-  <form id="loginForm" action="/user/login" method="post">
+  <form id="loginForm" action="/user/login2" method="post">
     <label for="">아이디(이메일주소): </label>
     <input type="text" id="userId" name="userId">
     <label for="">암호: </label>
@@ -14,11 +14,19 @@
     <input type="submit" value="Login">
   </form>
   <script>
+    // passport login error
+    const loginError = '<%= loginError %>';
+
     const loginMsg = '<%= loginMsg %>';
 
     if(loginMsg.length > 0) {
       alert(loginMsg);
     }
+
+    if(loginError.length > 0) {
+      alert(loginError);
+    }
+
     $("#loginForm").submit(() => {
       return true;
     });

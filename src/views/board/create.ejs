@@ -11,6 +11,15 @@
 <form action="/board/create" method="post">
     <div class="wrapper wrapper-content">
       <div class="ibox-content m-b-sm border-bottom">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="control-label" >Author</label>
+                    <input type="text" class="form-control" name="title" value="<%= loginUser.userName %>" disabled>
+                </div>
+            </div>
+        </div>
+
           <div class="row">
               <div class="col-sm-12">
                   <div class="form-group">

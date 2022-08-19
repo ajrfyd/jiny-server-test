@@ -8,11 +8,20 @@ import userRouter from './routes/user.js';
 import layOuts from 'express-ejs-layouts';
 import db from '../models/index.js';
 import session from 'express-session';
+import passport from 'passport';
+import { StatusCodes } from 'http-status-codes';
+import flash from 'connect-flash';
+import { isLoggedIn } from './routes/middlewares.js';
 
 const { log } = console;
 
 const app = express();
 db.sequelize.sync();
+app.use(flash());
+
+import passportConfig from './passport/index.js';
+
+passportConfig(passport);
 
 app.use(
   session({
@@ -26,6 +35,9 @@ app.use(
     },
   }),
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 dotenv.config();
 app.use(cors());
@@ -42,7 +54,7 @@ app.set("layout extractScripts", true);
 app.use(layOuts);
 
 
-const { PORT } = process.env || 4000;
+const { PORT, JWT_SECRET } = process.env || 4000;
 
 const react = {
   active: false
@@ -54,17 +66,22 @@ app.get('/', (req, res) => {
 
 const routes = [...boardRouter, ...userRouter];
 
-routes.forEach(({ method, route, handler }) => {
-  app[method](route, handler);
-});
-
-// boardRouter.forEach(({ method, route, handler }) => {
+// routes.forEach(({ method, route, handler }) => {
 //   app[method](route, handler);
 // });
 
-// userRouter.forEach(({ method, route, handler }) => {
-//   app[method](route, handler);
-// })
+boardRouter.forEach(({ method, route, handler }) => {
+  app[method](route, handler);
+});
+
+userRouter.forEach( ({ method, route, handler, next }) => {
+  app[method](route, handler);
+});
+
+app.use((err,req,res,next) => {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(err);
+  }
+);
 
 app.listen(PORT, () => {
   log(c.red(`Server Listening on ${PORT}`))

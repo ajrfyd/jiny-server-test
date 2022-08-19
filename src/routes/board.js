@@ -16,6 +16,16 @@ const boardRouter = [
       const resData = await db.Article.findAll(); 
       const mapData = resData.map(item => ({ ...item.dataValues }));
       const data = mapData.map(article => ({ ...article, updatedAt: dayString(article.updatedAt) }));
+
+      // get session 
+      if(!req.session.isLogin) {
+        log('Not access');
+        log(req.session.isLogin);
+      } else {
+        log(c.red(req.session.isLogin));
+        log(c.red(req.session.loginUser));
+      }
+
       // log(c.bgCyan(JSON.stringify(data, null, 2)))
       res.render('./board/list', { data, dayString });
     }
@@ -24,7 +34,12 @@ const boardRouter = [
     method: 'get',
     route: BASE + '/create',
     handler: async (req, res) => {
-      res.render('./board/create');
+      if(req.session.isLogin === undefined) {
+        res.redirect('/user/login');
+      } else {
+        const { loginUser } = req.session;
+        res.render('./board/create', { loginUser });
+      }
     }
   },
   {
